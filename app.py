@@ -1,11 +1,18 @@
-from flask import Flask
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
-    return "hello world"
+    
+    return render_template("index.html")
+
+@app.route("/trabajadores")
+def trabajadores():
+    
+    return render_template("trabajadores.html")
+
 
 
 if __name__ == "__main__":
