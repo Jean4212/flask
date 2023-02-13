@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %} Relacion de Trabajadores G&A {% endblock %}
+{% block title %}
+Relacion de Trabajadores G&A
+{% endblock %}
 
 {% block navbar %}
 <a class="nav-link" href="/">Inicio</a>
@@ -14,9 +16,9 @@
 <div class="container-xxl">
 
     <div class="d-flex justify-content-center">
-        <div style="margin-top: 15px; width: 80%;">
+        <div style="margin-top: 20px; width: 80%;">
             <div class="input-group rounded">
-                <input id="search" type="search" class="form-control rounded searchbox-input" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeyup="buttonUp();" onclick="validar()" required/>
+                <input id="search" type="search" class="form-control rounded searchbox-input" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" onkeyup="buttonUp();" onclick="validar()" required/>
             </div>
         </div>
     </div>
@@ -24,8 +26,8 @@
     <div class="row row-cols-xs-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
         {% for data in data %}
             <div class="col d-flex justify-content-center">
-                <div class="card text-center" style="width: 14rem; margin-top: 15px;">
-                    <img src="{{ url_for('static', filename='img/11.jpeg') }}" class="card-img-top" alt="..." data-bs-toggle="modal" data-bs-target="#a{{data.dni}}" style="cursor: pointer;">
+                <div class="card text-center" style="width: 14rem; margin-top: 20px;">
+                    <img src="{{ url_for('static', filename='img/11.jpeg') }}" class="card-img-top" alt="..." data-bs-toggle="modal" data-bs-target="#i{{data.dni}}" style="cursor: pointer;">
                     <div class="card-body">
                         <h5 class="card-title">{{ data.paterno }} {{ data.materno }}<br>{{ data.nombre }}</h5>
                         <p class="card-text"> {{ data.cargo }}<br>{{ data.dni }}</p>            
@@ -34,7 +36,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="a{{data.dni}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="i{{data.dni}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -42,12 +44,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <p>Fecha de nacimiento: {{data.nacimiento}}</p>
+                            <p>Fecha de ingreso: {{data.ingreso}}</p>                                                        
+                            <p>Numero de licencia: {{data.licencia}}</p>
+                            <p>Categoria de licencia: {{data.categoria}}</p>
+                            <p>Fecha de revalidacion: {{data.revalidacion}}</p>
                             <p>Distrito: {{data.distrito}}</p>
-                            <p>Nacimiento: {{data.nacimiento}}</p>
-                            <p>Ingreso: {{data.ingreso}}</p>
-                            <p>Licencia: {{data.licencia}}</p>
-                            <p>Categoria: {{data.categoria}}</p>
-                            <p>Revalidacion: {{data.revalidacion}}</p>
                             <a href="../static/img/11.jpeg" download="Dni.jpeg">Dni</a>
                             <a href="../static/img/11.jpeg" download="Licencia.jpeg">Licencia</a>
                             <a href="../static/img/11.jpeg" download="Policial.jpeg">Policial</a>
