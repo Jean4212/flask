@@ -3,13 +3,39 @@
 {% block title %} Registro de Asistencia G&A {% endblock %}
 
 {% block navbar %}
-<a class="nav-link" href="/">Inicio</a>
-<a class="nav-link" href="/trabajadores">Personal</a>
-<a class="nav-link" href="/planilla">Planilla</a>
+<a class="nav-link" href="/trabajadores">Trabajadores</a>
 <a class="nav-link active" href="/asistencia">Asistencia</a>
+<a class="nav-link" href="/desarrollo">Desarrollo</a>
+<a class="nav-link" href="/planilla">Planilla</a>
 {% endblock %}
 
 {% block content %}
+<div class="container-xxl" style="margin-top: 20px;">
+<table class="table" id="tableId">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Apellidos y Nombre</th>
+            {% for num in range(31) %}
+                <th scope="col">{{num + 1}}</th>
+            {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+        {% for data in data  %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{data.paterno}} {{data.materno}} {{data.nombre}}</td>
+                {% for num in range(31) %}
+                    <td class="item">{{num}}</td>
+                {% endfor %}           
+            </tr>
+        {% endfor %}    
+    </tbody>
+</table>
+</div>
+
+
 {% endblock %}
 
 
