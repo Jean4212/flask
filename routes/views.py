@@ -402,6 +402,7 @@ data = [{"paterno": "Oropeza", "materno": "Inca", "nombre": "Jeancarlos Alberto"
           "nacimiento": "05/04/1990", "ingreso": "31/12/2019"}]
 
 def index():
+    a = 1
     return render_template("index.html")
 
 def trabajadores():    
