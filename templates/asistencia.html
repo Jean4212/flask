@@ -2,6 +2,11 @@
 
 {% block title %} Registro de Asistencia G&A {% endblock %}
 
+{% block css %}
+<link href="{{ url_for('static', filename='css/asistencia.css') }}" rel="stylesheet">
+{% endblock css %}
+
+
 {% block navbar %}
 <a class="nav-link" href="/trabajadores">Trabajadores</a>
 <a class="nav-link active" href="/asistencia">Asistencia</a>

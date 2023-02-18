@@ -1,4 +1,6 @@
-from flask import render_template
+import os
+from flask import render_template, request, redirect
+from werkzeug.utils import secure_filename
 
 data = []
 for num in range(100):
@@ -8,8 +10,7 @@ for num in range(100):
          "nacimiento": "01/01/2000", "ingreso": "01/01/2022"}
     data.append(line)
 
-def index():
-    a = 1
+def index():   
     return render_template("index.html")
 
 def trabajadores():   
@@ -26,3 +27,38 @@ def planilla():
 
 def login():
     return render_template("login.html")
+
+def admin():
+
+    if request.method == "POST":
+        dni = request.form.get("dni")
+        paterno = request.form.get("paterno")
+        materno = request.form.get("materno")
+        nombre = request.form.get("nombre")
+        nacimiento = request.form.get("nacimiento")
+        ingreso = request.form.get("ingreso") 
+        licencia = request.form.get("licencia")
+        categoria = request.form.get("categoria")
+        revalidacion = request.form.get("revalidacion")
+        distrito = request.form.get("distrito") 
+
+        file = request.files['file']
+        if file.filename != '':            
+            filename = secure_filename(file.filename)
+            print(filename)
+            file.save(os.path.join(os.getcwd() + "/static/uploads", filename))
+
+        print(dni)
+        print(paterno)
+        print(materno)
+        print(nombre)
+        print(nacimiento)
+        print(ingreso)
+        print(licencia)
+        print(categoria)
+        print(revalidacion)
+        print(distrito)
+
+        return redirect(request.url)
+
+    return render_template("admin.html")

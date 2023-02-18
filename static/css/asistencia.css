@@ -1,6 +1,3 @@
-::-webkit-scrollbar {
-    display: none;
-}
 table thead {
     position: -webkit-sticky; 
     position: sticky;
