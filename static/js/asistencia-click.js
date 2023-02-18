@@ -1,31 +1,41 @@
-$(document).ready( function(){
-    $('body #lista').on('click', 'td', async function(){    
-        id =  $(this).attr('id');
-        var elemento = document.getElementById(id);
+$(document).ready(function(){
+    $('body #lista').on('click', '.item', function(){
+
+        let id = $(this).attr('id');
+        let elemento = document.getElementById(id);
 
         Swal.fire({
-          title: "Registrar",
-          text: "Apoyo y/o Falta",         
+          title: "Registrar",      
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Si',
-          cancelButtonText: 'No'
+          confirmButtonText: 'Apoyo',
+          cancelButtonText: 'Falta'
         }).then((result) => {
-
-            if(result.value){
-                if (elemento.style.backgroundColor == ""){
-                    elemento.style.backgroundColor = "blue";
-                }   
-                else if (elemento.style.backgroundColor == "blue"){
-                    elemento.style.backgroundColor = "red";        
+            
+            let validacion = result.isConfirmed
+           
+            if (validacion){
+                if (elemento.style.backgroundColor == "blue"){
+                        elemento.style.backgroundColor = "";
                 }
-                else if (elemento.style.backgroundColor == "red"){
-                    elemento.style.backgroundColor = "";        
-                }             
-            }         
+                else {
+                    elemento.style.backgroundColor = "blue";
+                }
+            }
+            else {
+                if (result.dismiss == "cancel"){
+                    if (elemento.style.backgroundColor == "red"){
+                        elemento.style.backgroundColor = "";
+                    }
+                    else {
+                    elemento.style.backgroundColor = "red";
+                    }
+                }
+            }
+
+              
         });
       })       
-    }
-  );
+    });
 
