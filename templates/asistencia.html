@@ -10,32 +10,37 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-xxl" style="margin-top: 20px;">
-<table class="table" id="tableId">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Apellidos y Nombre</th>
-            {% for num in range(31) %}
-                <th scope="col">{{num + 1}}</th>
-            {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-        {% for data in data  %}
+<div class="container-xxl d-flex justify-content-center" style="margin-top: 20px;">
+    <div class="table-responsive-sm table-responsive-md table-responsive-xs">
+        <table class="table table-sm table-bordered table-hover w-auto">
+            <thead>
             <tr>
-                <th scope="row">{{loop.index}}</th>
-                <td>{{data.paterno}} {{data.materno}} {{data.nombre}}</td>
-                {% for num in range(31) %}
-                    <td class="item">{{num}}</td>
-                {% endfor %}           
+                <th scope="col">#</th>
+                <th scope="col">Apellidos y Nombre</th>
+                    {% for num in range(31) %}
+                        <th scope="col">{{num + 1}}</th>
+                    {% endfor %}
             </tr>
-        {% endfor %}    
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                {% for data in data  %}
+                    <tr id="lista">
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{data.paterno}} {{data.materno}} {{data.nombre}}</td>
+                            {% for num in range(31) %}
+                                <td class="item" id="i{{data.dni}}d{{loop.index}}" style="cursor: pointer;"></td>
+                            {% endfor %}           
+                    </tr>
+                {% endfor %}    
+            </tbody>
+        </table>        
+    </div>
 </div>
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/asistencia-click.js') }}"></script>
 {% endblock %}
 
 

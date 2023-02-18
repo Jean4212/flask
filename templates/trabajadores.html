@@ -18,7 +18,8 @@ Relacion de Trabajadores G&A
     <div class="d-flex justify-content-center">
         <div style="margin-top: 20px; width: 80%;">
             <div class="input-group rounded">
-                <input id="search" type="search" class="form-control rounded searchbox-input" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" onkeyup="buttonUp();" required/>
+                <input id="search" type="search" class="form-control rounded searchbox-input" placeholder="Buscar" 
+                    aria-label="Search" aria-describedby="search-addon" onkeyup="buttonUp();" required/>
             </div>
         </div>
     </div>
@@ -27,7 +28,8 @@ Relacion de Trabajadores G&A
         {% for data in data %}
             <div class="col d-flex justify-content-center">
                 <div class="card text-center" style="width: 14rem; margin-top: 20px;">
-                    <img src="{{ url_for('static', filename='img/11.jpeg') }}" class="card-img-top" alt="..." data-bs-toggle="modal" data-bs-target="#i{{data.dni}}" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='img/11.jpeg') }}" class="card-img-top" alt="..." 
+                        data-bs-toggle="modal" data-bs-target="#i{{data.dni}}" style="cursor: pointer;">
                     <div class="card-body">
                         <h5 class="card-title">{{ data.paterno }} {{ data.materno }}<br>{{ data.nombre }}</h5>
                         <p class="card-text"> {{ data.cargo }}<br>{{ data.dni }}</p>            
@@ -63,6 +65,7 @@ Relacion de Trabajadores G&A
         {% endfor %}
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/filtrar.js') }}"></script>
 {% endblock %}
 
 
