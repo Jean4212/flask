@@ -9,7 +9,28 @@
 <a class="nav-link" href="/planilla">Planilla</a>
 {% endblock %}
 
+
+
 {% block content %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for category, message in messages %}
+              {% if category == 'message' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {% else %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {% endif %}
+
+              <strong>{{ message }}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+          {% endfor %}               
+      {% endif %}
+  {% endwith %}
+
+
+
 <div class="container-xxl">
 <form class="row g-3 needs-validation" action="" method="post" enctype="multipart/form-data">
     <div class="col-md-2 col-sm-4">   

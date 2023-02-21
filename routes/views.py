@@ -1,8 +1,16 @@
-import os
-from flask import render_template, request, redirect
+from os import path, getcwd
+from flask import render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
 from models.model import db, User
 
+#usuario = User(username="04000000", email="ddfsfd")
+        #db.session.add(usuario)
+        #db.session.commit()
+
+        #aa = User.query.all()    
+        #for user in aa:
+        #    print(user.username)
+        #    print(user.email)
 
 data = []
 for num in range(100):
@@ -12,12 +20,7 @@ for num in range(100):
          "nacimiento": "01/01/2000", "ingreso": "01/01/2022"}
     data.append(line)
 
-def index():       
-    
-    usuario = User(username="dsds", email="ddfsfd")
-    db.session.add(usuario)
-    db.session.commit()
-
+def index():
     return render_template("index.html")
 
 def trabajadores():   
@@ -36,9 +39,15 @@ def login():
     return render_template("login.html")
 
 def admin():
-
     if request.method == "POST":
+
         dni = request.form.get("dni")
+        person = User.query.filter_by(username=dni).first()
+
+        if person:
+            flash('Usuario ya Registrado', "danger")            
+            return redirect(request.url)
+
         paterno = request.form.get("paterno")
         materno = request.form.get("materno")
         nombre = request.form.get("nombre")
@@ -47,14 +56,19 @@ def admin():
         licencia = request.form.get("licencia")
         categoria = request.form.get("categoria")
         revalidacion = request.form.get("revalidacion")
-        distrito = request.form.get("distrito") 
+        distrito = request.form.get("distrito")   
+
+        newPerson = User(username=dni, email=paterno)
+        db.session.add(newPerson)
+        db.session.commit()
 
         file = request.files['file']
-        if file.filename != '':            
-            filename = secure_filename(file.filename)
-            print(filename)
-            file.save(os.path.join(os.getcwd() + "/static/uploads", filename))
-      
+        if file.filename != '':              
+            filename = secure_filename(file.filename)            
+            new_filename = dni + "." + filename.rsplit(".")[1]         
+            file.save(path.join(getcwd() + "/static/uploads", new_filename))
+
+        flash('Usuario Registrado Correctamente', "message")                
         return redirect(request.url)
 
     return render_template("admin.html")
