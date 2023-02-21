@@ -1,24 +1,19 @@
-import os
+from os import getcwd
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from models.model import db
 from routes.views import login, index, trabajadores, asistencia, desarrollo, planilla, admin
 
-db = SQLAlchemy()
-
 app = Flask(__name__)
+
 app.secret_key = "Secret key"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.getcwd() + '\database\database.db'
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + getcwd() + '\databases\database.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-
 
 db.init_app(app)
 
-from models.model import User
-
 with app.app_context():
     db.create_all()
-
 
 app.add_url_rule("/login", view_func=login)
 app.add_url_rule("/", view_func=index)

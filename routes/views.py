@@ -1,6 +1,8 @@
 import os
 from flask import render_template, request, redirect
 from werkzeug.utils import secure_filename
+from models.model import db, User
+
 
 data = []
 for num in range(100):
@@ -10,7 +12,12 @@ for num in range(100):
          "nacimiento": "01/01/2000", "ingreso": "01/01/2022"}
     data.append(line)
 
-def index():   
+def index():       
+    
+    usuario = User(username="dsds", email="ddfsfd")
+    db.session.add(usuario)
+    db.session.commit()
+
     return render_template("index.html")
 
 def trabajadores():   
@@ -47,18 +54,7 @@ def admin():
             filename = secure_filename(file.filename)
             print(filename)
             file.save(os.path.join(os.getcwd() + "/static/uploads", filename))
-
-        print(dni)
-        print(paterno)
-        print(materno)
-        print(nombre)
-        print(nacimiento)
-        print(ingreso)
-        print(licencia)
-        print(categoria)
-        print(revalidacion)
-        print(distrito)
-
+      
         return redirect(request.url)
 
     return render_template("admin.html")
