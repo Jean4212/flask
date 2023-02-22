@@ -16,7 +16,7 @@ with app.app_context():
     db.create_all()
 
 app.add_url_rule("/login", view_func=login)
-app.add_url_rule("/", view_func=index)
+app.add_url_rule("/", methods=["GET", "POST"], view_func=index)
 app.add_url_rule("/trabajadores", view_func=trabajadores)
 app.add_url_rule("/asistencia", view_func=asistencia)
 app.add_url_rule("/desarrollo", view_func=desarrollo)

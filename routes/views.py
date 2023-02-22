@@ -1,16 +1,10 @@
 from os import path, getcwd
 from flask import render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
-from models.model import db, User
+from models.model import db, Persons
+from models.person import formcalculadora
 
-#usuario = User(username="04000000", email="ddfsfd")
-        #db.session.add(usuario)
-        #db.session.commit()
 
-        #aa = User.query.all()    
-        #for user in aa:
-        #    print(user.username)
-        #    print(user.email)
 
 data = []
 for num in range(100):
@@ -21,7 +15,33 @@ for num in range(100):
     data.append(line)
 
 def index():
-    return render_template("index.html")
+
+    form = formcalculadora(request.form)        
+
+    if form.validate_on_submit():
+        dni = form.dni.data
+        paterno = form.paterno.data      
+        materno = form.materno.data
+        nombre = form.nombre.data      
+        nacimiento = form.nacimiento.data       
+
+        print(dni)
+        if dni == "48555618":
+            form.dni.data = ""           
+
+            #return redirect(request.url)
+
+        #try:
+        #    resultado = eval(str(num1) + operador + str(num2))
+        #except:
+        #    return render_template("index.html", error="No puedo realizar la operación")
+        #
+        #return render_template("planilla.html", num1=num1, num2=num2, operador=operador, resultado=resultado)	
+        
+
+    return render_template("index.html", form=form)
+    
+    
 
 def trabajadores():   
     return render_template("trabajadores.html", data=data)
@@ -42,10 +62,10 @@ def admin():
     if request.method == "POST":
 
         dni = request.form.get("dni")
-        person = User.query.filter_by(username=dni).first()
+        person = Persons.query.filter_by(dni=dni).first()
 
         if person:
-            flash('Usuario ya Registrado', "danger")            
+            flash('La persona se encuentra registrada', "danger")            
             return redirect(request.url)
 
         paterno = request.form.get("paterno")
@@ -58,7 +78,7 @@ def admin():
         revalidacion = request.form.get("revalidacion")
         distrito = request.form.get("distrito")   
 
-        newPerson = User(username=dni, email=paterno)
+        newPerson = Persons(username=dni, email=paterno)
         db.session.add(newPerson)
         db.session.commit()
 

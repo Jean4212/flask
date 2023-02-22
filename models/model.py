@@ -2,7 +2,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class User(db.Model):
+class Persons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(50), nullable=False)
+    dni = db.Column(db.String(8))
+    paterno = db.Column(db.String(30))
+    materno = db.Column(db.String(30))
+    nombre = db.Column(db.String(30))
+    nacimiento = db.Column(db.String(10))
+   

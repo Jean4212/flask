@@ -10,6 +10,16 @@
 {% endblock %}
 
 {% block content %}
+<form action="" method="post">
+    {{ form.csrf_token }}
+	{{form.dni.label() }}{{form.dni(placeholder="Dni")}}<br/>
+	{{form.paterno.label() }}{{form.paterno()}}<br/>
+	{{form.materno.label() }}{{form.materno()}}<br/>
+	{{form.nombre.label() }}{{form.nombre()}}<br/>
+	{{form.nacimiento.label() }}{{form.nacimiento()}}<br/>
+  	<br/>
+  	{{form.submit()}}
+</form>
 {% endblock %}
 
 
