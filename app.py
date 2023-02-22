@@ -1,7 +1,8 @@
 from os import getcwd
 from flask import Flask
 from models.model import db
-from routes.views import login, index, trabajadores, asistencia, desarrollo, planilla, admin
+from routes.views import login, trabajadores, asistencia, desarrollo, planilla, admin, api
+from routes.index import index
 
 app = Flask(__name__)
 
@@ -22,9 +23,10 @@ app.add_url_rule("/asistencia", view_func=asistencia)
 app.add_url_rule("/desarrollo", view_func=desarrollo)
 app.add_url_rule("/planilla", view_func=planilla)
 app.add_url_rule("/admin", methods=["GET", "POST"], view_func=admin)
+app.add_url_rule("/api", methods=["POST"], view_func=api)
 
 if __name__ == "__main__":      
-    app.run(debug=True)
+    app.run(debug=True)  #, host="0.0.0.0", port=5000)
 
 
 

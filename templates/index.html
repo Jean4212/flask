@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="" method="post">
+<form action="/api" method="post">
     {{ form.csrf_token }}
 	{{form.dni.label() }}{{form.dni(placeholder="Dni")}}<br/>
 	{{form.paterno.label() }}{{form.paterno()}}<br/>

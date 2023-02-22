@@ -14,6 +14,16 @@ for num in range(100):
          "nacimiento": "01/01/2000", "ingreso": "01/01/2022"}
     data.append(line)
 
+def api():   
+    dni = request.form.get("dni")
+    person = Persons.query.filter_by(dni=dni).first()
+    
+    if person:   
+
+        return f"Usuario Registrado"
+    
+    return f"tu dni es: {dni}" #render_template("trabajadores.html", data=data)
+
 def index():
 
     form = formcalculadora(request.form)        
@@ -23,13 +33,21 @@ def index():
         paterno = form.paterno.data      
         materno = form.materno.data
         nombre = form.nombre.data      
-        nacimiento = form.nacimiento.data       
+        nacimiento = form.nacimiento.data      
 
-        print(dni)
-        if dni == "48555618":
-            form.dni.data = ""           
+        dni = request.form.get("dni")
+        person = Persons.query.filter_by(dni=dni).first()
 
-            #return redirect(request.url)
+        if person:
+            print('La persona se encuentra registrada')   
+            return redirect(request.url)    
+            
+       
+        print('persona registrada correctamente')   
+        newPerson = Persons(dni, paterno, materno, nombre, nacimiento)
+        db.session.add(newPerson)
+        db.session.commit()    
+        return redirect(request.url)    
 
         #try:
         #    resultado = eval(str(num1) + operador + str(num2))
@@ -78,7 +96,7 @@ def admin():
         revalidacion = request.form.get("revalidacion")
         distrito = request.form.get("distrito")   
 
-        newPerson = Persons(username=dni, email=paterno)
+        newPerson = Persons(dni=dni, paterno=paterno, materno=materno, nombre=nombre, nacimiento=nacimiento)
         db.session.add(newPerson)
         db.session.commit()
 
